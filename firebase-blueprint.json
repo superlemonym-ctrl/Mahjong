@@ -1,0 +1,48 @@
+{
+  "entities": {
+    "Player": {
+      "title": "Player",
+      "description": "A mahjong player.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "nickname": { "type": "string" },
+        "avatarUrl": { "type": "string" },
+        "createdAt": { "type": "number" }
+      },
+      "required": ["id", "nickname", "avatarUrl", "createdAt"]
+    },
+    "GameSession": {
+      "title": "GameSession",
+      "description": "A single game session with multiple player scores.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "timestamp": { "type": "number" },
+        "records": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "playerId": { "type": "string" },
+              "score": { "type": "number" }
+            },
+            "required": ["playerId", "score"]
+          }
+        },
+        "notes": { "type": "string" }
+      },
+      "required": ["id", "timestamp", "records"]
+    }
+  },
+  "firestore": {
+    "/players/{playerId}": {
+      "schema": "Player",
+      "description": "Collection of all players."
+    },
+    "/sessions/{sessionId}": {
+      "schema": "GameSession",
+      "description": "Collection of all game sessions."
+    }
+  }
+}
